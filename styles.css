@@ -1,763 +1,622 @@
-/* =========
-   Base
-   ========= */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-:root {
-  --bg-dark: #000000;
-  --bg-darker: #000000;
-  --bg-alt: #050505;
-  --bg-card: #111111;
-  --accent: #ffd000;
-  --accent-soft: rgba(255, 208, 0, 0.1);
-  --accent-strong: #ffcc00;
-  --text-main: #ffffff;
-  --text-muted: #b3b3b3;
-  --border-subtle: #262626;
-  --radius-lg: 1rem;
-  --radius-xl: 1.25rem;
-  --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.9);
-  --max-width: 1120px;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #1a1a1a, #000000 60%);
-  color: var(--text-main);
-}
-
-/* Layout */
-
-.container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 1.25rem;
-}
-
-.section {
-  padding: 4.5rem 0;
-}
-
-.section-alt {
-  background: radial-gradient(circle at top left, #161616 0, #050505 60%, #000000 100%);
-}
-
-.section-heading {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 2.5rem;
-}
-
-.section-grid {
-  display: grid;
-  gap: 2.5rem;
-}
-
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.75rem;
-}
-
-.grid-4 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-}
-
-.center {
-  text-align: center;
-}
-
-/* Typography */
-
-h1,
-h2,
-h3,
-h4 {
-  margin: 0 0 0.75rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-}
-
-h1 {
-  font-size: clamp(2.4rem, 3vw + 1rem, 3.25rem);
-  line-height: 1.05;
-}
-
-h2 {
-  font-size: clamp(1.9rem, 2.4vw + 1rem, 2.3rem);
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-p {
-  font-size: 0.98rem;
-  line-height: 1.7;
-  color: var(--text-muted);
-  margin: 0 0 0.75rem;
-}
-
-.section-kicker {
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  color: var(--accent);
-  font-weight: 600;
-}
-
-/* =========
-   Header / Nav
-   ========= */
-
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(16px);
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.96),
-    rgba(0, 0, 0, 0.85)
-  );
-  border-bottom: 1px solid rgba(38, 38, 38, 0.9);
-}
-
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 0;
-}
-
-.logo {
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  color: var(--text-main);
-}
-
-.logo-image {
-  height: 40px;
-  width: auto;
-  margin-right: 0.75rem;
-}
-
-.logo-text {
-  display: flex;
-  flex-direction: column;
-}
-
-.logo-title {
-  font-size: 0.98rem;
-  font-weight: 600;
-}
-
-.logo-subtitle {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  font-size: 0.9rem;
-}
-
-.nav a {
-  color: var(--text-muted);
-  text-decoration: none;
-  position: relative;
-  padding: 0.2rem 0;
-}
-
-.nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -0.15rem;
-  width: 0;
-  height: 2px;
-  background: var(--accent);
-  transition: width 0.2s ease;
-}
-
-.nav a:hover::after,
-.nav a:focus-visible::after {
-  width: 100%;
-}
-
-.nav a:hover {
-  color: var(--text-main);
-}
-
-/* Dropdown */
-
-.nav-dropdown {
-  position: relative;
-}
-
-.nav-dropdown-toggle {
-  background: transparent;
-  border: none;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  cursor: pointer;
-  padding: 0.2rem 0;
-}
-
-.nav-dropdown-toggle:hover {
-  color: var(--text-main);
-}
-
-.nav-dropdown-menu {
-  position: absolute;
-  top: 150%;
-  left: 0;
-  background: #050505;
-  border-radius: 0.75rem;
-  padding: 0.5rem 0.4rem;
-  min-width: 180px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.95);
-  border: 1px solid var(--border-subtle);
-  opacity: 0;
-  transform: translateY(-4px);
-  pointer-events: none;
-  transition: opacity 0.15s ease, transform 0.15s ease;
-  z-index: 10;
-}
-
-.nav-dropdown-menu a {
-  display: block;
-  padding: 0.4rem 0.6rem;
-  border-radius: 0.55rem;
-  font-size: 0.88rem;
-}
-
-.nav-dropdown-menu a:hover {
-  background: rgba(255, 208, 0, 0.11);
-  color: var(--text-main);
-}
-
-.nav-dropdown.open .nav-dropdown-menu {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
-/* Buttons */
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  padding: 0.55rem 1.15rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  font-size: 0.88rem;
-  font-weight: 500;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease,
-    border-color 0.15s ease, color 0.15s ease;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: #000000;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.75);
-}
-
-.btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9);
-}
-
-.btn-outline {
-  border-color: rgba(179, 179, 179, 0.6);
-  color: var(--text-main);
-  background: transparent;
-}
-
-.btn-outline:hover {
-  background: #111111;
-  border-color: rgba(255, 255, 255, 0.8);
-}
-
-.btn-give {
-  background: rgba(255, 208, 0, 0.08);
-  border-radius: 999px;
-  border: 1px solid rgba(255, 208, 0, 0.7);
-  color: var(--accent);
-  padding-inline: 1.4rem;
-}
-
-.btn-give:hover {
-  background: rgba(255, 208, 0, 0.22);
-  color: #000000;
-}
-
-.btn-full {
-  width: 100%;
-}
-
-/* Mobile nav toggle */
-
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 4px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.nav-toggle-bar {
-  width: 20px;
-  height: 2px;
-  background: var(--text-main);
-  border-radius: 999px;
-}
-
-/* =========
-   This Week Strip
-   ========= */
-
-.week-strip {
-  background: #111111;
-  border-bottom: 1px solid #333333;
-  padding: 0.65rem 0;
-}
-
-.week-strip-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.week-strip-title {
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #f5c96b;
-  font-weight: 600;
-}
-
-.week-strip-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  font-size: 0.9rem;
-  color: #f5f5f5;
-}
-
-.week-strip-item strong {
-  color: #f5c96b;
-  font-weight: 600;
-}
-
-.week-strip-separator {
-  opacity: 0.5;
-}
-
-/* Mobile responsiveness for week strip */
-@media (max-width: 640px) {
-  .week-strip-inner {
-    align-items: flex-start;
-  }
-
-  .week-strip-items {
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  .week-strip-separator {
-    display: none;
-  }
-}
-
-/* =========
-   Hero
-   ========= */
-
-.hero {
-  position: relative;
-  min-height: 70vh;
-  padding: 4.5rem 0 3.5rem;
-  background-image:
-    radial-gradient(circle at top, rgba(255, 208, 0, 0.14), transparent 55%),
-    linear-gradient(145deg, #000000, #050505 65%, #000000 100%);
-  overflow: hidden;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 20% 0, rgba(255, 255, 255, 0.03), transparent 55%),
-    radial-gradient(circle at 80% 100%, rgba(255, 208, 0, 0.13), transparent 55%);
-  opacity: 0.7;
-  pointer-events: none;
-}
-
-.hero-content {
-  position: relative;
-  max-width: 720px;
-}
-
-.hero-kicker {
-  font-size: 0.82rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-}
-
-.hero-text {
-  margin-top: 0.75rem;
-}
-
-.hero-tagline {
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  font-size: 0.78rem;
-  color: var(--accent);
-  margin: 0.5rem 0 0.75rem;
-}
-
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin: 1.5rem 0 1.75rem;
-}
-
-.hero-service-times {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-}
-
-.service-time-card {
-  background: #111111;
-  border-radius: var(--radius-xl);
-  padding: 0.9rem 1rem;
-  border: 1px solid #262626;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.9);
-}
-
-.service-time-card h3 {
-  font-size: 0.95rem;
-  margin-bottom: 0.25rem;
-}
-
-.service-label {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--text-muted);
-  margin-bottom: 0.1rem;
-}
-
-.service-time {
-  font-weight: 600;
-}
-
-/* Cards */
-
-.card {
-  background: var(--bg-card);
-  border-radius: var(--radius-xl);
-  padding: 1.5rem 1.4rem;
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-soft);
-}
-
-.card h3 {
-  margin-bottom: 0.75rem;
-}
-
-/* Lists / Checklists */
-
-.checklist {
-  list-style: none;
-  padding: 0;
-  margin: 0.25rem 0 0;
-}
-
-.checklist li {
-  position: relative;
-  padding-left: 1.4rem;
-  margin-bottom: 0.55rem;
-}
-
-.checklist li::before {
-  content: "✦";
-  position: absolute;
-  left: 0;
-  top: 0.1rem;
-  font-size: 0.75rem;
-  color: var(--accent);
-}
-
-/* Events / Sermons */
-
-.events-list {
-  display: grid;
-  gap: 1.5rem;
-  margin-bottom: 1.75rem;
-}
-
-.event-card {
-  background: radial-gradient(circle at top left, rgba(255, 208, 0, 0.14), #050505 55%);
-  border-radius: var(--radius-xl);
-  padding: 1.4rem 1.4rem;
-  border: 1px solid #262626;
-}
-
-.event-card h3 {
-  margin-bottom: 0.35rem;
-}
-
-.event-meta {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-bottom: 0.65rem;
-}
-
-.card-link {
-  font-size: 0.9rem;
-  text-decoration: none;
-  color: var(--accent);
-}
-
-.card-link:hover {
-  text-decoration: underline;
-}
-
-/* Connect */
-
-.connect-grid .connect-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.connect-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(circle at top left, rgba(255, 208, 0, 0.2), transparent 55%);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  pointer-events: none;
-}
-
-.connect-card:hover::after {
-  opacity: 1;
-}
-
-/* Media */
-
-.media-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-/* Giving */
-
-.giving-list {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 0.75rem;
-}
-
-.giving-list li {
-  margin-bottom: 0.45rem;
-  font-size: 0.95rem;
-}
-
-.giving-list strong {
-  color: var(--accent);
-}
-
-.giving-note {
-  margin-top: 0.8rem;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
-
-/* Forms */
-
-.form {
-  display: grid;
-  gap: 0.8rem;
-}
-
-label {
-  font-size: 0.9rem;
-  display: grid;
-  gap: 0.25rem;
-}
-
-input,
-textarea {
-  font-family: inherit;
-  font-size: 0.9rem;
-  padding: 0.55rem 0.65rem;
-  border-radius: 0.65rem;
-  border: 1px solid #262626;
-  background: #050505;
-  color: var(--text-main);
-  outline: none;
-  transition: border-color 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
-}
-
-input:focus-visible,
-textarea:focus-visible {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 1px rgba(255, 208, 0, 0.7);
-}
-
-textarea {
-  resize: vertical;
-}
-
-/* Contact */
-
-.contact-details p {
-  margin-bottom: 0.35rem;
-}
-
-/* Footer */
-
-.site-footer {
-  border-top: 1px solid var(--border-subtle);
-  background: var(--bg-darker);
-  padding: 2.75rem 0 1.5rem;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
-  gap: 2rem;
-  align-items: flex-start;
-}
-
-.footer-logo {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.footer-logo .logo-image {
-  height: 36px;
-  margin-right: 0.75rem;
-}
-
-.footer-text {
-  max-width: 420px;
-}
-
-.footer-links {
-  list-style: none;
-  padding: 0;
-  margin: 0.2rem 0 0;
-}
-
-.footer-links li {
-  margin-bottom: 0.4rem;
-}
-
-.footer-links a {
-  text-decoration: none;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-}
-
-.footer-links a:hover {
-  color: var(--text-main);
-}
-
-.footer-bottom {
-  border-top: 1px solid var(--border-subtle);
-  margin-top: 2rem;
-  padding-top: 1rem;
-  text-align: center;
-}
-
-.footer-bottom p {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* =========
-   Responsive
-   ========= */
-
-@media (max-width: 840px) {
-  .nav {
-    position: absolute;
-    inset-inline: 1.25rem;
-    top: 3.4rem;
-    background: #050505;
-    flex-direction: column;
-    border-radius: 1.1rem;
-    padding: 0.8rem 0.9rem 0.9rem;
-    border: 1px solid #262626;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.95);
-    transform-origin: top;
-    transform: scaleY(0.8);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.15s ease, transform 0.15s ease;
-  }
-
-  body.nav-open .nav {
-    opacity: 1;
-    transform: scaleY(1);
-    pointer-events: auto;
-  }
-
-  .nav-toggle {
-    display: flex;
-  }
-
-  .hero {
-    padding-top: 4rem;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .hero-service-times {
-    margin-top: 0.75rem;
-  }
-
-  .section {
-    padding: 3.5rem 0;
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kingdom Embassy Ohio | Prophetic Church in Columbus</title>
+  <meta name="description" content="Kingdom Embassy Ohio — A House of Prayer & Prophetic Encounter, preparing the world for the 2nd coming of Christ." />
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#top" class="logo">
+        <img src="logo-keohio.png" alt="Kingdom Embassy Ohio logo" class="logo-image" />
+        <div class="logo-text">
+          <span class="logo-title">Kingdom Embassy Ohio</span>
+          <span class="logo-subtitle">A Prophetic Church</span>
+        </div>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <nav class="nav" id="mainNav">
+        <a href="#about">About</a>
+        <a href="#services">Service Times</a>
+        <a href="#visit">Plan Your Visit</a>
+        <a href="#new-here">New Here?</a>
+        <a href="#sermons">Sermons</a>
+        <a href="#events">Events</a>
+        <a href="#media">Media</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-toggle" type="button">
+            Connect
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="#prayer">Prayer Request</a>
+            <a href="#volunteer">Volunteer</a>
+            <a href="#partner">Partner</a>
+            <a href="#testimony">Share Testimony</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+        <a href="#give" class="btn btn-give">Give</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- THIS WEEK STRIP -->
+  <section class="week-strip">
+    <div class="container week-strip-inner">
+      <p class="week-strip-title">This Week at Kingdom Embassy Ohio</p>
+      <div class="week-strip-items">
+        <span class="week-strip-item"><strong>Sunday Worship Encounter:</strong> 3:00 PM EST</span>
+        <span class="week-strip-separator">•</span>
+        <span class="week-strip-item"><strong>Tuesday Bible Study:</strong> 7:00 PM EST</span>
+        <span class="week-strip-separator">•</span>
+        <span class="week-strip-item"><strong>Thursday Prophetic Service:</strong> 7:00 PM EST</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- HERO -->
+  <main id="top">
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="container hero-content">
+        <p class="hero-kicker">A House of Prayer & Prophetic Encounter</p>
+
+        <h1>Preparing hearts for the return of Jesus.</h1>
+
+        <p class="hero-tagline">
+          WE ARE A PEOPLE OF PRAYER PREPARING THE WORLD FOR THE 2ND COMING OF CHRIST.
+        </p>
+
+        <p class="hero-text">
+          Welcome to Kingdom Embassy Ohio – a prophetic hub where the presence of God, prayer, and the Word transform lives, families, and cities.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#visit" class="btn btn-primary">Plan Your Visit</a>
+          <a href="#give" class="btn btn-outline">Give Online</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">Our Vision</p>
+          <h2>We are a praying people, carrying a prophetic mandate.</h2>
+          <p>
+            Kingdom Embassy Ohio is a prophetic, Spirit-led church committed to hosting the presence of God and preparing believers for the return of the Lord Jesus Christ.
+          </p>
+          <p>
+            We gather to encounter God, grow in spiritual maturity, and be equipped to demonstrate His Kingdom in our families, cities, and the nations.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Our Mission</h3>
+          <ul class="checklist">
+            <li>Ignite hearts through prayer, worship, and the Word.</li>
+            <li>Raise prophetic voices who discern and declare Heaven’s agenda.</li>
+            <li>Develop spiritual gifts and callings for Kingdom assignment.</li>
+            <li>Impact our region with the love, power, and compassion of Christ.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICE TIMES -->
+    <section class="section section-alt" id="services">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-kicker">Service Times</p>
+          <h2>Join us in the presence of God.</h2>
+          <p>
+            Whether you are new to church or hungry for more of God, you are welcome here. Come expecting prayer, prophecy, and the tangible presence of the Holy Spirit.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card service-card">
+            <h3>Sunday Worship Encounter</h3>
+            <p class="service-day">Every Sunday</p>
+            <p class="service-info">Doors open at <strong>3:00 PM EST</strong></p>
+            <p>An afternoon worship encounter with the Word, worship, and prophetic ministry.</p>
+          </div>
+
+          <div class="card service-card">
+            <h3>Tuesday Bible Study</h3>
+            <p class="service-day">Every Tuesday</p>
+            <p class="service-info">Starts at <strong>7:00 PM EST</strong></p>
+            <p>Foundational teaching, digging deeper into Scripture, and growing in the Word.</p>
+          </div>
+
+          <div class="card service-card">
+            <h3>Thursday Prophetic Service</h3>
+            <p class="service-day">Every Thursday</p>
+            <p class="service-info">Starts at <strong>7:00 PM EST</strong></p>
+            <p>Prophetic flow, personal ministry, and corporate prayer and intercession.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLAN YOUR VISIT -->
+    <section class="section" id="visit">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-kicker">Plan Your Visit</p>
+          <h2>We’re expecting you.</h2>
+          <p>
+            We want your visit to be simple, clear, and full of peace. Here’s what you can expect when you come.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>What to Expect</h3>
+            <p>
+              Services are filled with passionate worship, prayer, and prophetic ministry. Come dressed comfortably—casual or dressy, you’ll fit right in.
+            </p>
+            <ul class="checklist">
+              <li>Services last about 2–2.5 hours.</li>
+              <li>Live worship and prophetic flow.</li>
+              <li>Prayer and ministry available at the altar.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Families &amp; Children</h3>
+            <p>
+              We love families and the next generation. Children are welcome in the main sanctuary and may have moments of focused prayer and ministry.
+            </p>
+            <ul class="checklist">
+              <li>Kids can worship with parents.</li>
+              <li>Family-friendly environment.</li>
+              <li>Space for parents with little ones as needed.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Parking &amp; Arrival</h3>
+            <p>
+              We are easy to find with GPS using our church address listed in the Contact section below. Our team will gladly help you find a seat.
+            </p>
+            <ul class="checklist">
+              <li>Arrive 10–15 minutes early.</li>
+              <li>Follow the address under “Contact” for directions.</li>
+              <li>Come with expectation—God is moving.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW HERE -->
+    <section class="section section-alt" id="new-here">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">New Here?</p>
+          <h2>Welcome home to Kingdom Embassy Ohio.</h2>
+          <p>
+            If you’re visiting for the first time, we want you to know you are not here by accident. We believe the Holy Spirit orders steps, and we are honored to walk with you.
+          </p>
+          <p>
+            Whether you’re hungry for more of God, seeking healing, or simply curious, there is room for you here.
+          </p>
+          <ul class="checklist">
+            <li>No church background required—just come as you are.</li>
+            <li>We value presence over performance.</li>
+            <li>We believe in the gifts of the Spirit and the prophetic.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Let Us Know You’re Coming</h3>
+          <p>Share a few details so we can greet you and pray over your visit.</p>
+          <form class="form" action="mailto:Info@kingdomembassyohio.com" method="post" enctype="text/plain">
+            <label>
+              Name
+              <input type="text" name="name" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" required />
+            </label>
+            <label>
+              Which service are you planning to attend?
+              <input type="text" name="service" placeholder="Sunday / Tuesday / Thursday" />
+            </label>
+            <label>
+              Anything we can be praying for?
+              <textarea name="prayer" rows="3"></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary btn-full">Submit</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERMON ARCHIVE -->
+    <section class="section" id="sermons">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-kicker">Sermons</p>
+          <h2>Catch up on recent messages.</h2>
+          <p>
+            Stay built up in the Word through recent sermons, teachings, and prophetic moments.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>The Voice in the Wilderness</h3>
+            <p class="event-meta">Recent Message</p>
+            <p>Preparing a generation to hear and obey the voice of God in a noisy world.</p>
+          </article>
+
+          <article class="card">
+            <h3>Altar of Intercession</h3>
+            <p class="event-meta">Prayer &amp; Intercession</p>
+            <p>Building and guarding a lifestyle of prayer that sustains revival and transformation.</p>
+          </article>
+
+          <article class="card">
+            <h3>Preparing for His Coming</h3>
+            <p class="event-meta">End-Time Focus</p>
+            <p>Aligning our hearts, homes, and assignments with the return of Jesus Christ.</p>
+          </article>
+        </div>
+
+        <div class="center" style="margin-top:1.5rem;">
+          <a
+            href="#media"
+            class="btn btn-outline"
+          >
+            View Sermon Media
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="section section-alt" id="events">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-kicker">Events</p>
+          <h2>Stay connected to what God is doing.</h2>
+        </div>
+
+        <div class="events-list">
+          <article class="event-card">
+            <h3>Prophetic Worship Night</h3>
+            <p class="event-meta">Date: Coming Soon • Columbus, Ohio</p>
+            <p>
+              A night of extended worship, prophetic songs, and ministry. Bring your family and invite someone who needs a fresh encounter with God.
+            </p>
+          </article>
+
+          <article class="event-card">
+            <h3>Prayer &amp; Intercession Intensive</h3>
+            <p class="event-meta">Date: Coming Soon • Columbus, Ohio</p>
+            <p>
+              Training and activation for intercessors, watchmen, and those called to stand in the gap for cities and nations.
+            </p>
+          </article>
+        </div>
+
+        <div class="center">
+          <a href="#contact" class="btn btn-outline">Ask About Upcoming Events</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ONE-ON-ONE -->
+    <section class="section" id="one-on-one">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">One-on-One Ministry</p>
+          <h2>Personal prophetic and pastoral ministry.</h2>
+          <p>
+            Our leadership team offers one-on-one sessions for counseling, prophetic insight, and prayer. These sessions are by request and scheduled in advance.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Request a Session</h3>
+          <form class="form" action="mailto:Info@kingdomembassyohio.com" method="post" enctype="text/plain">
+            <label>
+              Full Name
+              <input type="text" name="name" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" required />
+            </label>
+            <label>
+              Briefly share what you’re asking prayer or guidance for
+              <textarea name="message" rows="4" required></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary btn-full">Submit Request</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONNECT -->
+    <section class="section" id="connect">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-kicker">Connect</p>
+          <h2>There is a place for you at Kingdom Embassy.</h2>
+        </div>
+
+        <div class="grid-4 connect-grid">
+          <article class="card connect-card" id="prayer">
+            <h3>Prayer Request</h3>
+            <p>Our intercessors would be honored to stand with you in prayer.</p>
+            <a href="#contact" class="card-link">Submit a Prayer Request →</a>
+          </article>
+
+          <article class="card connect-card" id="volunteer">
+            <h3>Volunteer</h3>
+            <p>Join a serving team and let your gifts touch lives.</p>
+            <a href="#contact" class="card-link">Ask About Serving →</a>
+          </article>
+
+          <article class="card connect-card" id="partner">
+            <h3>Partner</h3>
+            <p>Partner with us financially to advance the Gospel and impact families.</p>
+            <a href="#give" class="card-link">Learn About Partnership →</a>
+          </article>
+
+          <article class="card connect-card" id="testimony">
+            <h3>Share Your Testimony</h3>
+            <p>Has God touched you through this ministry? Share your story.</p>
+            <a href="#contact" class="card-link">Share Your Story →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEDIA -->
+    <section class="section section-alt" id="media">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">Media</p>
+          <h2>Watch, listen, and stay built up in the Word.</h2>
+          <p>
+            Catch up on recent messages, teachings, and prophetic moments from Kingdom Embassy Ohio. Subscribe to stay connected wherever you are.
+          </p>
+          <ul class="checklist">
+            <li>Livestream and recent broadcasts</li>
+            <li>Teaching series and conferences</li>
+            <li>Short clips, testimonies, and highlights</li>
+          </ul>
+        </div>
+        <div class="card media-card">
+          <h3>Visit Our Channel</h3>
+          <p>Access sermons, worship, and prophetic clips.</p>
+          <a
+            href="https://youtube.com/@keohiofamily?si=v8fVqs3jgL4N9DoY"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary btn-full"
+          >
+            Go to YouTube
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GIVING -->
+    <section class="section" id="give">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">Giving</p>
+          <h2>Your generosity makes ministry possible.</h2>
+          <p>
+            As you give, you help us minister to families, serve our city, and send the Gospel beyond our walls.
+          </p>
+        </div>
+
+        <div class="card giving-card">
+          <h3>Ways to Give</h3>
+          <ul class="giving-list">
+            <li>
+              <strong>Cash App:</strong> <span>$KEOhio</span>
+            </li>
+            <li>
+              <strong>PayPal:</strong>
+              <span>
+                <a
+                  href="https://paypal.me/KERRCOH?locale.x=en_US&amp;country.x=US"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  paypal.me/KERRCOH
+                </a>
+              </span>
+            </li>
+            <li>
+              <strong>In Person:</strong> During any service.
+            </li>
+          </ul>
+
+          <a
+            href="https://paypal.me/KERRCOH?locale.x=en_US&amp;country.x=US"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary btn-full"
+          >
+            Give Online
+          </a>
+
+          <p class="giving-note">
+            All contributions to Kingdom Embassy Ohio are received as non-refundable charitable donations.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT + MAP -->
+    <section class="section section-alt" id="contact">
+      <div class="container section-grid">
+        <div>
+          <p class="section-kicker">Contact</p>
+          <h2>We would love to hear from you.</h2>
+          <p>
+            Have questions, a testimony, or a prayer request? Send us a message and someone from our team will respond as soon as possible.
+          </p>
+
+          <div class="contact-details">
+            <p><strong>Location:</strong> 1783 Melrose Ave, Columbus, OH 43224, USA</p>
+            <p><strong>Email:</strong> <a href="mailto:Info@kingdomembassyohio.com">Info@kingdomembassyohio.com</a></p>
+            <p><strong>Phone:</strong> 614-353-7607</p>
+
+            <h3>Office Hours</h3>
+            <p>Tuesday – Wednesday: 10:00 AM – 6:00 PM EST</p>
+            <p>Thursday: 10:00 AM – 3:00 PM EST</p>
+            <p>Friday – Saturday: 10:00 AM – 6:00 PM EST</p>
+            <p>Sunday &amp; Monday: Closed</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Send a Message</h3>
+          <form class="form" action="mailto:Info@kingdomembassyohio.com" method="post" enctype="text/plain">
+            <label>
+              Name
+              <input type="text" name="name" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" required />
+            </label>
+            <label>
+              What can we help you with?
+              <textarea name="message" rows="4" required></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary btn-full">Send</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Google Map Embed -->
+      <div class="container" style="margin-top: 2rem;">
+        <h3 style="margin-bottom: 0.75rem;">Find Us</h3>
+        <p style="margin-bottom: 0.75rem; color: #b3b3b3;">
+          Use the map below to get directions to Kingdom Embassy Ohio.
+        </p>
+        <div style="position: relative; overflow: hidden; border-radius: 1rem; border: 1px solid #262626; box-shadow: 0 20px 40px rgba(0,0,0,0.9);">
+          <iframe
+            title="Kingdom Embassy Ohio Location"
+            src="https://www.google.com/maps?q=1783+Melrose+Ave,+Columbus,+OH+43224&output=embed"
+            width="100%"
+            height="340"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-logo">
+          <img src="logo-keohio.png" alt="Kingdom Embassy Ohio logo" class="logo-image" />
+          <div class="logo-text">
+            <span class="logo-title">Kingdom Embassy Ohio</span>
+            <span class="logo-subtitle">A Prophetic Church</span>
+          </div>
+        </div>
+        <p class="footer-text">
+          Preparing the church for the return of Jesus Christ through prayer, the prophetic, and the power of the Holy Spirit.
+        </p>
+      </div>
+
+      <div>
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#visit">Plan Your Visit</a></li>
+          <li><a href="#new-here">New Here?</a></li>
+          <li><a href="#sermons">Sermons</a></li>
+          <li><a href="#give">Give</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Follow</h3>
+        <ul class="footer-links">
+          <li>
+            <a
+              href="https://www.facebook.com/share/1Bp2dqpZWc/?mibextid=wwXIfr"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Facebook
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.instagram.com/kingdomembassyohio?igsh=OWxhN2JybHR1bjNl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Instagram
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://youtube.com/@keohiofamily?si=v8fVqs3jgL4N9DoY"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              YouTube
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.tiktok.com/@kingdomembassyohio?_r=1&amp;_t=ZP-91UVL4i8AgB"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              TikTok
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> Kingdom Embassy Ohio. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
