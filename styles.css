@@ -80,7 +80,97 @@ body {
   text-align: center;
 }
 
-/* Typography */
+/* =========
+   Week Strip
+   ========= */
+
+.week-strip {
+  background: #050505;
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.5rem 0;
+  font-size: 0.85rem;
+}
+
+.week-strip-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.week-strip-title {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.week-strip-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  color: var(--text-muted);
+}
+
+.week-strip-item strong {
+  color: var(--text-main);
+}
+
+.week-strip-separator {
+  opacity: 0.6;
+}
+
+/* =========
+   Live Strip
+   ========= */
+
+.live-strip {
+  display: none; /* hidden by default, JS will toggle */
+  background: #0b0b0b;
+  border-bottom: 1px solid #333333;
+  padding: 0.4rem 0;
+}
+
+.live-strip--active {
+  display: block;
+}
+
+.live-strip-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: #f5f5f5;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #ff3b3b;
+  box-shadow: 0 0 0 6px rgba(255, 59, 59, 0.25);
+}
+
+.live-text {
+  font-weight: 500;
+}
+
+.live-link {
+  margin-left: auto;
+  font-size: 0.88rem;
+  text-decoration: none;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.live-link:hover {
+  text-decoration: underline;
+}
+
+/* =========
+   Typography
+   ========= */
 
 h1,
 h2,
@@ -335,65 +425,6 @@ p {
 }
 
 /* =========
-   This Week Strip
-   ========= */
-
-.week-strip {
-  background: #111111;
-  border-bottom: 1px solid #333333;
-  padding: 0.65rem 0;
-}
-
-.week-strip-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.week-strip-title {
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #f5c96b;
-  font-weight: 600;
-}
-
-.week-strip-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  font-size: 0.9rem;
-  color: #f5f5f5;
-}
-
-.week-strip-item strong {
-  color: #f5c96b;
-  font-weight: 600;
-}
-
-.week-strip-separator {
-  opacity: 0.5;
-}
-
-/* Mobile responsiveness for week strip */
-@media (max-width: 640px) {
-  .week-strip-inner {
-    align-items: flex-start;
-  }
-
-  .week-strip-items {
-    flex-direction: column;
-    gap: 0.15rem;
-  }
-
-  .week-strip-separator {
-    display: none;
-  }
-}
-
-/* =========
    Hero
    ========= */
 
@@ -451,6 +482,8 @@ p {
   margin: 1.5rem 0 1.75rem;
 }
 
+/* Hero service times (currently not used, but kept if needed later) */
+
 .hero-service-times {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -480,6 +513,41 @@ p {
 
 .service-time {
   font-weight: 600;
+}
+
+/* =========
+   Next Service Bar
+   ========= */
+
+.next-service-bar {
+  display: none; /* JS enables this */
+  margin-top: 1rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 208, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(12px);
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.next-service-label {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.next-service-name {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.next-service-countdown {
+  color: var(--text-muted);
+  font-size: 0.8rem;
 }
 
 /* Cards */
@@ -759,5 +827,26 @@ textarea {
 
   .section {
     padding: 3.5rem 0;
+  }
+
+  .next-service-bar {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .live-strip-inner {
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .live-link {
+    margin-left: 0;
+  }
+
+  .week-strip-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
   }
 }
